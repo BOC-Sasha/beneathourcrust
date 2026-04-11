@@ -603,7 +603,7 @@
 <!-- ═══ SPECIALS BANNER ═══ -->
 <div class="specials-banner">
   <span class="specials-label">✦ This Week</span>
-  <span class="specials-content" id="specials-text">Sprouted spelt loaves available this Saturday — limited to 6. Pre-order by Thursday.</span>
+  <span class="specials-content" id="specials-text">Sprouted spelt loaves available this week — limited to 6. Pre-order by Wednesday 5pm</span>
   <button id="specials-edit-btn" onclick="openSpecialsModal()">Edit Special ✎</button>
 </div>
 
@@ -625,8 +625,11 @@
   <div>
     <p class="section-label">Our Story</p>
     <h2 class="section-title">Beneath the crust,<br/>there's history.</h2>
-    <p>My grandmother — <em>babička</em> — never measured. She knew dough by feel, by smell, by the way it pulled away from the bowl. She baked sourdough in a wood-fired oven in Slovakia before I was born, and somehow that knowledge found its way into my hands.</p>
-    <p>Fifteen years of sourdough later, I'm doing the same thing in Winston-Salem, NC — slow fermentation, quality flour, a very hot stone, and patience. No shortcuts, no additives. Just bread the way it was meant to be.</p>
+    <p>Hi, I'm Sasha. Slovak mum, Winston-Salem resident, and firm believer that bread should nourish you — not just fill a shelf.</p> My grandmother — <em>babička</em> — never measured. She knew dough by feel, by smell, by the way it pulled away from the bowl. She baked for family, friends, neighbors, the whole village and beyond. I watched her. And somewhere between the flour dust and the warmth of her kitchen, something got into me.</p>
+    <p>Years later, living abroad with an oven and a starter and too much determination, I began baking my own sourdough. That was fifteen years ago. I haven't stopped since.</p>Now I'm doing the same thing in Winston-Salem — slow fermentation, quality flour, patience, and zero shortcuts. No additives. No fillers. Just bread the way it was always meant to be: real food that does something good for you.</p>
+    <p>That's how Beneath Our Crust was born. Every loaf, every cookie that leaves this kitchen is made with ingredients I'd choose for my own family. Organic. Honest. Nothing hiding on the label.</p>
+    <p>It's my small act of care — for the craft, for the people I bake for, and for the idea that what you feed yourself matters just as much as everything else you choose with intention.</p>
+    <p>Wholesome goodness, baked with love. That's it. That's all there is.</p>
     <p>Every loaf and every cookie is made in small batches, to order, out of my home kitchen under NC Cottage Food Law.</p>
   </div>
   <div class="about-image">
@@ -710,15 +713,15 @@
       </div>
       <div class="info-block">
         <h4>Order window</h4>
-        <p>Orders open each Sunday for the following weekend. Cutoff is Thursday noon.</p>
+        <p>Orders open each Sunday for the following week. Cutoff is Wednesday by 5pm.</p>
       </div>
       <div class="info-block">
         <h4>Pickup</h4>
-        <p>Winston-Salem, NC — pickup location shared upon order confirmation.</p>
+        <p>Winston-Salem, NC — pickup location shared upon order confirmation. Delivery upon agreement, additional fee may be charged.</p>
       </div>
       <div class="info-block">
         <h4>Payment</h4>
-        <p>Venmo, Zelle, or cash at pickup. Payment confirms your order.</p>
+        <p>Venmo, CashApp upfront. Payment confirms your order.</p>
       </div>
     </div>
 
@@ -751,16 +754,17 @@
           <option value="">— Select a product —</option>
           <option>Whole Wheat Sourdough Loaf</option>
           <option>Sprouted Spelt Sourdough Loaf</option>
-          <option>Country White Sourdough Loaf</option>
+          <option>Wheat Sourdough Loaf</option>
           <option>Brown Butter Sourdough Cookies (6-pack)</option>
-          <option>Linzer Cookies – Raspberry (6-pack)</option>
-          <option>Linzer Cookies – Apricot (6-pack)</option>
+          <option>Brown Butter Sourdough Cookies (12-pack)</option>
+          <option>Linzer Cookies (6-pack)</option>
+          <option>Linzer Cookies (12-pack)</option>
           <option>Mixed order (describe below)</option>
         </select>
       </div>
       <div class="form-group">
         <label for="notes">Order details / special requests</label>
-        <textarea id="notes" placeholder="e.g. 2 whole wheat loaves + 1 cookie pack; any allergies or notes..."></textarea>
+        <textarea id="notes" placeholder="e.g. 2 whole wheat loaves + 1 cookie pack; mix of cookies, min. amount 3 pcs of 1 flavor, any allergies or notes..."></textarea>
       </div>
       <button class="form-submit" onclick="submitOrder()">Send Order Request →</button>
       <p class="form-note">You'll receive a confirmation email within 24 hours.</p>
@@ -796,7 +800,7 @@
     <div class="footer-col">
       <h4>Contact</h4>
       <ul>
-        <li><a href="mailto:hello@beneathourcrust.com">hello@beneathourcrust.com</a></li>
+        <li><a href="mailto:beneathourcrust@gmail.com">beneathourcrust@gmail.com</a></li>
         <li><a href="#">Winston-Salem, NC</a></li>
         <li><a href="https://instagram.com/beneathourcrust">@beneathourcrust</a></li>
       </ul>
@@ -823,25 +827,20 @@
     {
       category: "Sourdough Breads",
       items: [
-        { name: "Whole Wheat Sourdough Loaf", desc: "100% whole wheat, long cold ferment, open crumb", price: "$12" },
-        { name: "Sprouted Spelt Sourdough Loaf", desc: "Nutty, digestible, and deeply flavored", price: "$14" },
-        { name: "Country White Sourdough Loaf", desc: "Classic high-hydration, crisp crust, chewy crumb", price: "$11" },
-        { name: "Seeded Sourdough Loaf", desc: "Sesame, sunflower & flax — seasonal availability", price: "$13" },
+        { name: "Wheat Sourdough Loaf", desc: "100% organic supersprout wheat, long cold ferment, open crumb", price: "$8" },
+        { name: "Spelt Sourdough Loaf", desc: "Nutty, digestible, and deeply flavored, organic super sprout spelt", price: "$9" },
+        { name: "Whole Wheat Sourdough loaf", desc: "Dense crumb, bold wheaty crust", price: "$9" },
       ]
     },
     {
       category: "Cookies & Sweets",
       items: [
-        { name: "Brown Butter Sourdough Cookies", desc: "6-pack · Crispy edges, chewy center, deeply caramelized", price: "$9" },
-        { name: "Linzer Cookies – Raspberry", desc: "6-pack · Buttery, jam-filled Slovak classic", price: "$10" },
-        { name: "Linzer Cookies – Apricot", desc: "6-pack · Delicate and fragrant", price: "$10" },
-      ]
-    },
-    {
-      category: "Bundles",
-      items: [
-        { name: "Bread + Cookie Bundle", desc: "1 loaf of your choice + 1 cookie pack", price: "$18" },
-        { name: "Gift Bundle", desc: "2 loaves + 2 cookie packs — great for gifts", price: "$34" },
+       { name: "Brown Butter Sourdough Cookies – Chocolate Chip", desc: "6-pack · Crispy edges, chewy center, deeply caramelized", price: "$11" },
+       { name: "Brown Butter Sourdough Cookies – Double Chocolate Espresso", desc: "6-pack · Rich, dark, and dangerously good", price: "$11" },
+       { name: "Brown Butter Sourdough Cookies – Chocolate Chip", desc: "12-pack · Perfect for sharing. Or not.", price: "$20" },
+       { name: "Brown Butter Sourdough Cookies – Double Chocolate Espresso", desc: "12-pack · Rich, dark, and dangerously good", price: "$20" },
+       { name: "Linzer Cookies – Raspberry, Apricot, Berries", desc: "6-pack · Buttery, Austrian classic", price: "$12" },
+       { name: "Linzer Cookies – Raspberry, Apricot, Berries", desc: "12-pack · Delicate and fragrant", price: "$22" },
       ]
     }
   ];
@@ -928,7 +927,7 @@
       `Item: ${document.getElementById('items').value}\n` +
       `Notes: ${document.getElementById('notes').value}`
     );
-    window.location.href = `mailto:hello@beneathourcrust.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:beneathourcrust@gmail.com?subject=${subject}&body=${body}`;
     showToast('✓ Opening your email app to send your order!');
   }
 
