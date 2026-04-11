@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beneath Our Crust — Sourdough Microbakery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf8f4;
+      --wheat: #d4a96a;
+      --dark-wheat: #b8893a;
+      --crust: #3d2b1f;
+      --crust-light: #5c4033;
+      --stone: #8c7b6b;
+      --stone-light: #c4b5a5;
+      --accent: #c9603a;
+      --green: #5a6b4e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--crust);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(212, 169, 106, 0.25);
+      transition: all 0.3s;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--crust);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--wheat); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--crust-light);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--wheat); }
+
+    .nav-social { display: flex; gap: 1rem; align-items: center; }
+    .nav-social a { color: var(--stone); transition: color 0.2s; }
+    .nav-social a:hover { color: var(--wheat); }
+    .nav-social svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+    }
+
+    .hero-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 4rem 6rem 6rem;
+      background: var(--cream);
+      position: relative;
+    }
+
+    .hero-text::after {
+      content: '';
+      position: absolute; right: -1px; top: 0; bottom: 0; width: 60px;
+      background: var(--cream);
+      clip-path: polygon(0 0, 0% 100%, 100% 50%);
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--crust);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em { font-style: italic; color: var(--wheat); }
+
+    .hero-sub {
+      font-size: 1rem; color: var(--stone); line-height: 1.7;
+      max-width: 380px; margin-bottom: 2.5rem;
+    }
+
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      background: var(--crust);
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+      font-weight: 500;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      border: 1.5px solid var(--crust);
+      color: var(--crust);
+      text-decoration: none;
+      font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+      font-weight: 500;
+      transition: all 0.25s;
+    }
+    .btn-outline:hover { background: var(--crust); color: var(--cream); }
+
+    .hero-image {
+      position: relative;
+      background: var(--stone-light);
+      overflow: hidden;
+    }
+
+    .hero-image .photo-grid {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      height: 100%;
+      gap: 3px;
+    }
+
+    .photo-placeholder {
+      background: linear-gradient(135deg, var(--stone-light) 0%, var(--wheat) 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+
+    .photo-placeholder::before {
+      content: '🍞';
+      font-size: 4rem;
+      opacity: 0.4;
+    }
+
+    .photo-placeholder img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      position: absolute; inset: 0;
+    }
+
+    /* ── SPECIALS BANNER ── */
+    .specials-banner {
+      background: var(--accent);
+      color: var(--warm-white);
+      padding: 1.2rem 3rem;
+      display: flex; align-items: center; gap: 2rem;
+      overflow: hidden;
+    }
+
+    .specials-label {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      font-weight: 500; white-space: nowrap;
+      background: rgba(255,255,255,0.2);
+      padding: 0.3rem 0.8rem;
+    }
+
+    .specials-content {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-style: italic;
+      flex: 1;
+    }
+
+    #specials-edit-btn {
+      font-size: 0.75rem; background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4); color: white;
+      padding: 0.4rem 1rem; cursor: pointer; white-space: nowrap;
+      transition: background 0.2s;
+    }
+    #specials-edit-btn:hover { background: rgba(255,255,255,0.35); }
+
+    .specials-modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5); z-index: 200;
+      align-items: center; justify-content: center;
+    }
+    .specials-modal-overlay.open { display: flex; }
+    .specials-modal {
+      background: var(--warm-white);
+      padding: 2.5rem; max-width: 500px; width: 90%;
+    }
+    .specials-modal h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; margin-bottom: 1rem;
+    }
+    .specials-modal textarea {
+      width: 100%; min-height: 80px; padding: 0.75rem;
+      border: 1.5px solid var(--stone-light); font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; resize: vertical; margin-bottom: 1rem;
+    }
+    .specials-modal .modal-actions { display: flex; gap: 1rem; justify-content: flex-end; }
+    .modal-save {
+      padding: 0.7rem 1.5rem; background: var(--crust); color: white;
+      border: none; cursor: pointer; font-size: 0.85rem; letter-spacing: 0.08em;
+    }
+    .modal-cancel {
+      padding: 0.7rem 1.5rem; background: none; border: 1.5px solid var(--stone-light);
+      cursor: pointer; font-size: 0.85rem;
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 6rem 3rem; }
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--wheat); font-weight: 500; margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300; line-height: 1.15;
+      margin-bottom: 1rem; color: var(--crust);
+    }
+    .section-intro {
+      color: var(--stone); line-height: 1.7; max-width: 560px; margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--crust);
+      color: var(--cream);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+      align-items: center;
+    }
+    #about .section-title { color: var(--cream); }
+    #about .section-label { color: var(--wheat); }
+    #about p { color: rgba(245,240,232,0.8); line-height: 1.8; margin-bottom: 1.2rem; }
+    #about em { color: var(--wheat); font-style: italic; }
+
+    .about-image {
+      height: 500px;
+      background: linear-gradient(160deg, var(--wheat) 0%, var(--dark-wheat) 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .about-image::before { content: '🌾'; font-size: 5rem; opacity: 0.3; }
+    .about-image img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    /* ── GALLERY ── */
+    #gallery { background: var(--warm-white); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+    .gallery-item {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--stone-light), var(--wheat));
+      position: relative; overflow: hidden; cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item .overlay {
+      position: absolute; inset: 0;
+      background: rgba(61,43,31,0);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.3s;
+    }
+    .gallery-item:hover .overlay { background: rgba(61,43,31,0.4); }
+    .gallery-item .overlay span {
+      color: white; font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; opacity: 0; transition: opacity 0.3s;
+    }
+    .gallery-item:hover .overlay span { opacity: 1; }
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem; opacity: 0.5;
+    }
+
+    .gallery-note {
+      margin-top: 1.5rem;
+      font-size: 0.85rem; color: var(--stone);
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* ── PRICE LIST ── */
+    #menu {
+      background: var(--cream);
+    }
+
+    .menu-admin-bar {
+      display: flex; justify-content: flex-end; margin-bottom: 1rem;
+    }
+    .btn-edit {
+      background: none; border: 1.5px solid var(--wheat);
+      color: var(--crust-light); padding: 0.5rem 1.2rem;
+      font-size: 0.8rem; letter-spacing: 0.1em; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-edit:hover { background: var(--wheat); color: white; }
+
+    .menu-categories { display: grid; gap: 3rem; }
+    .menu-category h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 400;
+      border-bottom: 1px solid var(--stone-light);
+      padding-bottom: 0.5rem; margin-bottom: 1.2rem;
+      color: var(--crust);
+    }
+    .menu-items { display: grid; gap: 0; }
+    .menu-item {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(196,181,165,0.4);
+    }
+    .menu-item:last-child { border-bottom: none; }
+    .item-info {}
+    .item-name { font-weight: 500; margin-bottom: 0.2rem; }
+    .item-desc { font-size: 0.85rem; color: var(--stone); }
+    .item-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; color: var(--accent); white-space: nowrap;
+      margin-left: 1rem;
+    }
+
+    /* Price edit modal */
+    .price-modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5); z-index: 200;
+      align-items: flex-start; justify-content: center;
+      padding: 4rem 1rem; overflow-y: auto;
+    }
+    .price-modal-overlay.open { display: flex; }
+    .price-modal {
+      background: var(--warm-white);
+      padding: 2.5rem; width: 100%; max-width: 700px;
+    }
+    .price-modal h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; margin-bottom: 0.5rem;
+    }
+    .price-modal p { font-size: 0.85rem; color: var(--stone); margin-bottom: 2rem; }
+    .price-edit-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+    .price-edit-table th {
+      text-align: left; font-size: 0.75rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--stone);
+      padding: 0.5rem 0.5rem; border-bottom: 2px solid var(--stone-light);
+    }
+    .price-edit-table td { padding: 0.5rem 0.5rem; border-bottom: 1px solid rgba(196,181,165,0.3); }
+    .price-edit-table input {
+      width: 100%; padding: 0.45rem 0.6rem;
+      border: 1.5px solid var(--stone-light);
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      background: white;
+    }
+    .price-edit-table input:focus { outline: none; border-color: var(--wheat); }
+    .price-edit-table .cat-header td {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 600;
+      padding-top: 1.5rem; color: var(--crust);
+      border-bottom: none;
+    }
+    .price-modal .modal-actions { display: flex; gap: 1rem; justify-content: flex-end; }
+
+    /* ── ORDER FORM ── */
+    #order { background: var(--warm-white); }
+
+    .order-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
+    .order-info { padding-top: 1rem; }
+    .order-info .info-block { margin-bottom: 2rem; }
+    .order-info h4 {
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--wheat); margin-bottom: 0.5rem;
+    }
+    .order-info p { font-size: 0.9rem; color: var(--stone); line-height: 1.7; }
+
+    .order-form { background: var(--cream); padding: 2.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block; font-size: 0.78rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--crust-light);
+      margin-bottom: 0.4rem; font-weight: 500;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 0.75rem 0.9rem;
+      border: 1.5px solid var(--stone-light);
+      background: white; font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; color: var(--crust);
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { outline: none; border-color: var(--wheat); }
+    .form-group textarea { min-height: 90px; resize: vertical; }
+    .form-group select { cursor: pointer; }
+
+    .form-submit {
+      width: 100%; padding: 1rem;
+      background: var(--crust); color: var(--cream);
+      border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase;
+      font-weight: 500; transition: background 0.25s;
+      margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: var(--accent); }
+
+    .form-note { font-size: 0.78rem; color: var(--stone); margin-top: 0.75rem; text-align: center; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--crust);
+      color: rgba(245,240,232,0.7);
+      padding: 4rem 3rem 2rem;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 4rem; margin-bottom: 3rem;
+    }
+    .footer-brand .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 300;
+      color: var(--cream); margin-bottom: 1rem; display: block;
+    }
+    .footer-brand .logo span { color: var(--wheat); }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.7; max-width: 280px; }
+    .footer-col h4 {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--wheat); margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul li a {
+      color: rgba(245,240,232,0.7); text-decoration: none;
+      font-size: 0.9rem; transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--wheat); }
+    .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .social-link {
+      width: 38px; height: 38px;
+      border: 1px solid rgba(245,240,232,0.2);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(245,240,232,0.7); text-decoration: none;
+      transition: all 0.2s;
+    }
+    .social-link:hover { border-color: var(--wheat); color: var(--wheat); }
+    .social-link svg { width: 16px; height: 16px; fill: currentColor; }
+    .footer-bottom {
+      border-top: 1px solid rgba(245,240,232,0.1);
+      padding-top: 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem;
+    }
+    .footer-bottom .nc-badge {
+      font-size: 0.72rem;
+      background: rgba(245,240,232,0.1);
+      padding: 0.3rem 0.8rem;
+      color: rgba(245,240,232,0.6);
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.9); z-index: 300;
+      align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+    .lightbox-close {
+      position: absolute; top: 2rem; right: 2rem;
+      color: white; font-size: 2rem; cursor: pointer; background: none; border: none;
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px);
+      background: var(--green); color: white;
+      padding: 1rem 2rem; font-size: 0.9rem;
+      transition: transform 0.4s; z-index: 400;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-text { padding: 4rem 2rem; }
+      .hero-text::after { display: none; }
+      .hero-image { height: 50vw; }
+      .hero-image .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
+      section { padding: 4rem 1.5rem; }
+      #about { grid-template-columns: 1fr; gap: 2rem; }
+      .about-image { height: 300px; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .order-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .specials-banner { padding: 1rem 1.5rem; }
+    }
+
+    /* Subtle page load animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+    .hero-title { animation: fadeUp 0.7s 0.1s ease both; }
+    .hero-sub { animation: fadeUp 0.7s 0.2s ease both; }
+    .hero-ctas { animation: fadeUp 0.7s 0.3s ease both; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#" class="nav-logo">Beneath Our <span>Crust</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#menu">Menu & Prices</a></li>
+    <li><a href="#order">Order</a></li>
+  </ul>
+  <div class="nav-social">
+    <!-- Instagram -->
+    <a href="https://instagram.com/beneathourcrust" target="_blank" title="Instagram" id="nav-instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+    <!-- Facebook placeholder -->
+    <a href="#" title="Facebook" id="nav-facebook">
+      <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Winston-Salem, NC · NC Cottage Food Law</p>
+    <h1 class="hero-title">
+      Sourdough,<br/><em>the slow way.</em>
+    </h1>
+    <p class="hero-sub">
+      Handcrafted sourdough breads and buttery cookies — made in small batches, rooted in a Slovak baking tradition passed down through generations.
+    </p>
+    <div class="hero-ctas">
+      <a href="#order" class="btn-primary">Place an Order</a>
+      <a href="#menu" class="btn-outline">See Prices</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="photo-grid">
+      <div class="photo-placeholder">
+        <!-- Replace src with your actual photo -->
+        <!-- <img src="your-bread-photo.jpg" alt="Sourdough loaf"> -->
+        <div class="gallery-placeholder">🍞</div>
+      </div>
+      <div class="photo-placeholder">
+        <!-- <img src="your-cookies-photo.jpg" alt="Brown butter cookies"> -->
+        <div class="gallery-placeholder">🍪</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SPECIALS BANNER ═══ -->
+<div class="specials-banner">
+  <span class="specials-label">✦ This Week</span>
+  <span class="specials-content" id="specials-text">Sprouted spelt loaves available this Saturday — limited to 6. Pre-order by Thursday.</span>
+  <button id="specials-edit-btn" onclick="openSpecialsModal()">Edit Special ✎</button>
+</div>
+
+<!-- Specials Edit Modal -->
+<div class="specials-modal-overlay" id="specials-modal">
+  <div class="specials-modal">
+    <h3>Update This Week's Special</h3>
+    <p style="font-size:0.85rem;color:var(--stone);margin-bottom:1rem;">This text appears in the banner at the top of the page.</p>
+    <textarea id="specials-input"></textarea>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeSpecialsModal()">Cancel</button>
+      <button class="modal-save" onclick="saveSpecial()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div>
+    <p class="section-label">Our Story</p>
+    <h2 class="section-title">Beneath the crust,<br/>there's history.</h2>
+    <p>My grandmother — <em>babička</em> — never measured. She knew dough by feel, by smell, by the way it pulled away from the bowl. She baked sourdough in a wood-fired oven in Slovakia before I was born, and somehow that knowledge found its way into my hands.</p>
+    <p>Fifteen years of sourdough later, I'm doing the same thing in Winston-Salem, NC — slow fermentation, quality flour, a very hot stone, and patience. No shortcuts, no additives. Just bread the way it was meant to be.</p>
+    <p>Every loaf and every cookie is made in small batches, to order, out of my home kitchen under NC Cottage Food Law.</p>
+  </div>
+  <div class="about-image">
+    <!-- <img src="your-baker-photo.jpg" alt="Baker at work"> -->
+  </div>
+</section>
+
+<!-- ═══ GALLERY ═══ -->
+<section id="gallery">
+  <p class="section-label">From the Oven</p>
+  <h2 class="section-title">Fresh every week.</h2>
+  <p class="section-intro">Each bake is a little different. Scroll through recent loaves and treats — and follow us on Instagram for the latest.</p>
+
+  <div class="gallery-grid">
+    <!-- Replace these with <img> tags pointing to your photos -->
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <div class="gallery-placeholder">🍞</div>
+      <div class="overlay"><span>Whole Wheat Sourdough</span></div>
+      <!-- <img src="photo1.jpg" alt="Whole Wheat Sourdough"> -->
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <div class="gallery-placeholder">🌾</div>
+      <div class="overlay"><span>Sprouted Spelt</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <div class="gallery-placeholder">🍪</div>
+      <div class="overlay"><span>Brown Butter Cookies</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <div class="gallery-placeholder">❤️</div>
+      <div class="overlay"><span>Linzer Cookies</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <div class="gallery-placeholder">🔥</div>
+      <div class="overlay"><span>Country Loaf</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <div class="gallery-placeholder">✨</div>
+      <div class="overlay"><span>Seasonal Special</span></div>
+    </div>
+  </div>
+  <p class="gallery-note">📸 More on Instagram · <a href="https://instagram.com/beneathourcrust" target="_blank" style="color:var(--wheat);">@beneathourcrust</a></p>
+</section>
+
+<!-- ═══ MENU / PRICE LIST ═══ -->
+<section id="menu">
+  <p class="section-label">Menu & Pricing</p>
+  <h2 class="section-title">What's baking.</h2>
+  <p class="section-intro">All items are made to order. Prices reflect small-batch, handcrafted quality with quality ingredients.</p>
+
+  <div class="menu-admin-bar">
+    <button class="btn-edit" onclick="openPriceModal()">✎ Update Prices</button>
+  </div>
+
+  <div class="menu-categories" id="menu-display"></div>
+</section>
+
+<!-- Price Edit Modal -->
+<div class="price-modal-overlay" id="price-modal">
+  <div class="price-modal">
+    <h3>Update Menu & Prices</h3>
+    <p>Edit names, descriptions, and prices. Changes save to this browser session.</p>
+    <table class="price-edit-table" id="price-edit-table"></table>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closePriceModal()">Cancel</button>
+      <button class="modal-save" onclick="savePrices()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ORDER FORM ═══ -->
+<section id="order">
+  <div class="order-grid">
+    <div class="order-info">
+      <p class="section-label">Place an Order</p>
+      <h2 class="section-title">Ready to bake for you.</h2>
+
+      <div class="info-block">
+        <h4>How it works</h4>
+        <p>Submit your order request below. I'll confirm availability and total via email, then arrange pickup in Winston-Salem.</p>
+      </div>
+      <div class="info-block">
+        <h4>Order window</h4>
+        <p>Orders open each Sunday for the following weekend. Cutoff is Thursday noon.</p>
+      </div>
+      <div class="info-block">
+        <h4>Pickup</h4>
+        <p>Winston-Salem, NC — pickup location shared upon order confirmation.</p>
+      </div>
+      <div class="info-block">
+        <h4>Payment</h4>
+        <p>Venmo, Zelle, or cash at pickup. Payment confirms your order.</p>
+      </div>
+    </div>
+
+    <div class="order-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="Your name" required />
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="Last name" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@email.com" required />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone (optional)</label>
+        <input type="tel" id="phone" placeholder="(555) 000-0000" />
+      </div>
+      <div class="form-group">
+        <label for="pickup">Preferred Pickup Date</label>
+        <input type="date" id="pickup" />
+      </div>
+      <div class="form-group">
+        <label for="items">What would you like to order?</label>
+        <select id="items">
+          <option value="">— Select a product —</option>
+          <option>Whole Wheat Sourdough Loaf</option>
+          <option>Sprouted Spelt Sourdough Loaf</option>
+          <option>Country White Sourdough Loaf</option>
+          <option>Brown Butter Sourdough Cookies (6-pack)</option>
+          <option>Linzer Cookies – Raspberry (6-pack)</option>
+          <option>Linzer Cookies – Apricot (6-pack)</option>
+          <option>Mixed order (describe below)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="notes">Order details / special requests</label>
+        <textarea id="notes" placeholder="e.g. 2 whole wheat loaves + 1 cookie pack; any allergies or notes..."></textarea>
+      </div>
+      <button class="form-submit" onclick="submitOrder()">Send Order Request →</button>
+      <p class="form-note">You'll receive a confirmation email within 24 hours.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo">Beneath Our <span>Crust</span></span>
+      <p>Small-batch sourdough breads and cookies, made with slow fermentation and a Slovak heart. Winston-Salem, NC.</p>
+      <div class="social-links">
+        <a href="https://instagram.com/beneathourcrust" target="_blank" class="social-link" title="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="#" class="social-link" title="Facebook" id="footer-facebook">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#menu">Menu & Prices</a></li>
+        <li><a href="#order">Place an Order</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:hello@beneathourcrust.com">hello@beneathourcrust.com</a></li>
+        <li><a href="#">Winston-Salem, NC</a></li>
+        <li><a href="https://instagram.com/beneathourcrust">@beneathourcrust</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Beneath Our Crust. All rights reserved.</span>
+    <span class="nc-badge">NC Cottage Food Law Compliant</span>
+  </div>
+</footer>
+
+<!-- ═══ LIGHTBOX ═══ -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="" />
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── MENU DATA ──
+  let menuData = [
+    {
+      category: "Sourdough Breads",
+      items: [
+        { name: "Whole Wheat Sourdough Loaf", desc: "100% whole wheat, long cold ferment, open crumb", price: "$12" },
+        { name: "Sprouted Spelt Sourdough Loaf", desc: "Nutty, digestible, and deeply flavored", price: "$14" },
+        { name: "Country White Sourdough Loaf", desc: "Classic high-hydration, crisp crust, chewy crumb", price: "$11" },
+        { name: "Seeded Sourdough Loaf", desc: "Sesame, sunflower & flax — seasonal availability", price: "$13" },
+      ]
+    },
+    {
+      category: "Cookies & Sweets",
+      items: [
+        { name: "Brown Butter Sourdough Cookies", desc: "6-pack · Crispy edges, chewy center, deeply caramelized", price: "$9" },
+        { name: "Linzer Cookies – Raspberry", desc: "6-pack · Buttery, jam-filled Slovak classic", price: "$10" },
+        { name: "Linzer Cookies – Apricot", desc: "6-pack · Delicate and fragrant", price: "$10" },
+      ]
+    },
+    {
+      category: "Bundles",
+      items: [
+        { name: "Bread + Cookie Bundle", desc: "1 loaf of your choice + 1 cookie pack", price: "$18" },
+        { name: "Gift Bundle", desc: "2 loaves + 2 cookie packs — great for gifts", price: "$34" },
+      ]
+    }
+  ];
+
+  function renderMenu() {
+    const el = document.getElementById('menu-display');
+    el.innerHTML = menuData.map(cat => `
+      <div class="menu-category">
+        <h3>${cat.category}</h3>
+        <div class="menu-items">
+          ${cat.items.map(item => `
+            <div class="menu-item">
+              <div class="item-info">
+                <div class="item-name">${item.name}</div>
+                <div class="item-desc">${item.desc}</div>
+              </div>
+              <div class="item-price">${item.price}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function openPriceModal() {
+    const table = document.getElementById('price-edit-table');
+    let html = `<tr><th>Item</th><th>Description</th><th>Price</th></tr>`;
+    menuData.forEach((cat, ci) => {
+      html += `<tr class="cat-header"><td colspan="3">${cat.category}</td></tr>`;
+      cat.items.forEach((item, ii) => {
+        html += `<tr>
+          <td><input value="${item.name}" data-ci="${ci}" data-ii="${ii}" data-field="name" /></td>
+          <td><input value="${item.desc}" data-ci="${ci}" data-ii="${ii}" data-field="desc" /></td>
+          <td><input value="${item.price}" data-ci="${ci}" data-ii="${ii}" data-field="price" style="width:70px" /></td>
+        </tr>`;
+      });
+    });
+    table.innerHTML = html;
+    document.getElementById('price-modal').classList.add('open');
+  }
+
+  function closePriceModal() {
+    document.getElementById('price-modal').classList.remove('open');
+  }
+
+  function savePrices() {
+    document.querySelectorAll('#price-edit-table input').forEach(input => {
+      const ci = +input.dataset.ci, ii = +input.dataset.ii, field = input.dataset.field;
+      if (ci !== undefined && !isNaN(ci)) menuData[ci].items[ii][field] = input.value;
+    });
+    renderMenu();
+    closePriceModal();
+    showToast('✓ Prices updated!');
+  }
+
+  // ── SPECIALS ──
+  function openSpecialsModal() {
+    document.getElementById('specials-input').value = document.getElementById('specials-text').textContent;
+    document.getElementById('specials-modal').classList.add('open');
+  }
+  function closeSpecialsModal() {
+    document.getElementById('specials-modal').classList.remove('open');
+  }
+  function saveSpecial() {
+    const val = document.getElementById('specials-input').value.trim();
+    if (val) document.getElementById('specials-text').textContent = val;
+    closeSpecialsModal();
+    showToast('✓ Special updated!');
+  }
+
+  // ── ORDER FORM ──
+  function submitOrder() {
+    const fname = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    if (!fname || !email) { showToast('Please fill in your name and email.'); return; }
+
+    // Build mailto link as fallback (works without a backend)
+    const subject = encodeURIComponent('Order Request – Beneath Our Crust');
+    const body = encodeURIComponent(
+      `Name: ${fname} ${document.getElementById('lname').value}\n` +
+      `Email: ${email}\n` +
+      `Phone: ${document.getElementById('phone').value || 'N/A'}\n` +
+      `Pickup date: ${document.getElementById('pickup').value || 'TBD'}\n` +
+      `Item: ${document.getElementById('items').value}\n` +
+      `Notes: ${document.getElementById('notes').value}`
+    );
+    window.location.href = `mailto:hello@beneathourcrust.com?subject=${subject}&body=${body}`;
+    showToast('✓ Opening your email app to send your order!');
+  }
+
+  // ── LIGHTBOX ──
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    if (!img) return; // no real image yet
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+
+  // ── TOAST ──
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // Init
+  renderMenu();
+</script>
+</body>
+</html>
