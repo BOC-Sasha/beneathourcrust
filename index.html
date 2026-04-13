@@ -263,7 +263,7 @@
   <div>
     <p class="section-label">Our Story</p>
     <h2 class="section-title">Beneath the crust,<br/>there's history.</h2>
-    <p>Hi, I'm Sasha. Slovak mum, Winston-Salem resident, and firm believer that bread should nourish you — not just fill a shelf.</p>
+    <p>Hi, I'm Sasha. Slovak mum, living in Winston-Salem. I am firm believer that bread should nourish you — not just fill a shelf.</p>
     <p>My grandmother — <em>babička</em> — never measured. She knew dough by feel, by smell, by the way it pulled away from the bowl. She baked for family, friends, neighbors, the whole village and beyond. I watched her. And somewhere between the flour dust and the warmth of her kitchen, something got into me.</p>
     <p>Years later, living abroad with an oven and a starter and too much determination, I began baking my own sourdough. That was fifteen years ago. I haven't stopped since.</p>
     <p>Now I'm doing the same thing in Winston-Salem — slow fermentation, quality flour, patience, and zero shortcuts. No additives. No fillers. Just bread the way it was always meant to be: real food that does something good for you.</p>
@@ -357,7 +357,9 @@
         <p>Venmo or CashApp upfront. Payment confirms your order.</p>
       </div>
     </div>
-    <div class="order-form">
+    <form class="order-form" action="https://api.web3forms.com/submit" method="POST">
+<input type="hidden" name="access_key" value="3084d4d9-ec29-493b-a483-7fea66d19274">
+<input type="hidden" name="subject" value="New Order – Beneath Our Crust">
       <div class="form-row">
         <div class="form-group">
           <label for="fname">First Name</label>
@@ -399,10 +401,9 @@
       <div class="form-group">
         <label for="notes">Order details / special requests</label>
         <textarea id="notes" placeholder="e.g. 2 wheat loaves + 1 cookie pack; any allergies or notes..."></textarea>
-      </div>
-      <button class="form-submit" onclick="submitOrder()">Send Order Request →</button>
+     <button type="submit" class="form-submit">Send Order Request →</button>
       <p class="form-note">You'll receive a confirmation email within 24 hours.</p>
-    </div>
+    </form>
   </div>
 </section>
 
