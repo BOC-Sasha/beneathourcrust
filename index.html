@@ -360,28 +360,28 @@
       <div class="form-row">
         <div class="form-group">
           <label for="fname">First Name</label>
-          <input type="text" id="fname" placeholder="Your name" />
+          <input type="text" id="fname" name="first_name" placeholder="Your name" />
         </div>
         <div class="form-group">
           <label for="lname">Last Name</label>
-          <input type="text" id="lname" placeholder="Last name" />
+          <input type="text" id="lname" name="last_name" placeholder="Last name" />
         </div>
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" placeholder="you@email.com" />
+        <input type="email" id="email" name="email" placeholder="you@email.com" />
       </div>
       <div class="form-group">
         <label for="phone">Phone (optional)</label>
-        <input type="tel" id="phone" placeholder="(555) 000-0000" />
+        <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
       </div>
       <div class="form-group">
         <label for="pickup">Preferred Pickup Date</label>
-        <input type="date" id="pickup" />
+        <input type="date" id="pickup" name="pickup_date" placeholder="MM/DD/YYYY" />
       </div>
       <div class="form-group">
         <label for="items">What would you like to order?</label>
-        <select id="items">
+        <select id="items" name="order_items">
           <option value="">— Select a product —</option>
           <option>Wheat Sourdough Loaf</option>
           <option>Spelt Sourdough Loaf</option>
@@ -397,7 +397,7 @@
       </div>
       <div class="form-group">
         <label for="notes">Order details / special requests</label>
-        <textarea id="notes" placeholder="e.g. 2 wheat loaves + 1 cookie pack; any allergies or notes..."></textarea>
+        <textarea id="notes" name="notes" placeholder="e.g. 2 wheat loaves + 1 cookie pack; any allergies or notes..."></textarea>
      <button type="submit" class="form-submit">Send Order Request →</button>
       <p class="form-note">You'll receive a confirmation email within 24 hours.</p>
     </form>
